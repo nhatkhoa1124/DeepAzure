@@ -1,3 +1,5 @@
 <Solution>
+  <Project Path="DeepAzureServer.IntegrationTests/DeepAzureServer.IntegrationTests.csproj" />
+  <Project Path="DeepAzureServer.Tests/DeepAzureServer.Tests.csproj" />
   <Project Path="DeepAzureServer/DeepAzureServer.csproj" />
 </Solution>
