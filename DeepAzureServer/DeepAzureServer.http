@@ -1,0 +1,6 @@
+@DeepAzureServer_HostAddress = http://localhost:5094
+
+GET {{DeepAzureServer_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

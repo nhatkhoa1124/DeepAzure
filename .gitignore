@@ -1,0 +1,8 @@
+# Ignore standard VS junk
+.vs/
+bin/
+obj/
+
+# Ignore appsettings
+**/appsettings.json
+**/appsettings.Development.json
