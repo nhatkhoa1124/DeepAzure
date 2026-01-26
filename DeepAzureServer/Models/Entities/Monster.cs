@@ -6,11 +6,17 @@
         public string Name { get; set; }
         public string Description { get; set; }
         public int BaseHealth { get; set; }
+        public int GrowthHealth { get; set; }
         public int BaseStrength { get; set; }
+        public int GrowthStrength { get; set; }
         public int BaseDefense { get; set; }
+        public int GrowthDefense { get; set; }
         public int BaseMagic { get; set; }
+        public int GrowthMagic { get; set; }
         public int BaseResistance { get; set; }
+        public int GrowthResistance { get; set; }
         public int BaseSpeed { get; set; }
+        public int GrowthSpeed { get; set; }
         public int Price { get; set; }
         public int PrimaryElementId { get; set; }
         public int SecondaryElementId { get; set; }

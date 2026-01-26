@@ -10,8 +10,8 @@ namespace DeepAzureServer.Models.Entities
         public int EloChange { get; set; }
         public string Outcome { get; set; }
         public int GoldEarned { get; set; }
-
-        public ICollection<User> Users = new List<User>();
-        public ICollection<Match> Matches = new List<Match>();
+        
+        public User? User { get; set; }
+        public Match? Match { get; set; }
     }
 }

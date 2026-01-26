@@ -9,5 +9,7 @@ namespace DeepAzureServer.Models.Entities
         public string Description { get; set; }
         public string LogicKey { get; set; }
         public JsonDocument LogicData { get; set; }
+
+        public ICollection<Monster> Monsters = new List<Monster>();
     }
 }
