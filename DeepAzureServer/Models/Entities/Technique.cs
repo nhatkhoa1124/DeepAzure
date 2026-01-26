@@ -13,7 +13,7 @@ namespace DeepAzureServer.Models.Entities
         public TechniqueStatType StatType { get; set; }
         public int StatAmout { get; set; }
         public int ElementId { get; set; }
-        public int StatusEffectId { get; set; }
+        public int? StatusEffectId { get; set; }
 
         public Element? Element { get; set; }
         public StatusEffect? StatusEffect { get; set; }

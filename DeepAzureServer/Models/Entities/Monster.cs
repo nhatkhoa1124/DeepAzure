@@ -19,8 +19,8 @@
         public int GrowthSpeed { get; set; }
         public int Price { get; set; }
         public int PrimaryElementId { get; set; }
-        public int SecondaryElementId { get; set; }
-        public int AbilityId { get; set; }
+        public int? SecondaryElementId { get; set; }
+        public int? AbilityId { get; set; }
 
         public Element? PrimaryElement { get; set; }
         public Element? SecondaryElement { get; set; }

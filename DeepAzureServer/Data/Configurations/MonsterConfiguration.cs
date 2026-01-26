@@ -54,7 +54,7 @@ namespace DeepAzureServer.Data.Configurations
             builder.HasOne(m => m.SecondaryElement)
                 .WithMany()
                 .HasForeignKey(m => m.SecondaryElementId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.SetNull);
             builder.HasOne(m => m.Ability)
                 .WithMany(a => a.Monsters)
                 .HasForeignKey(m => m.AbilityId)
