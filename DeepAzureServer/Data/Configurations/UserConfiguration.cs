@@ -38,7 +38,7 @@ namespace DeepAzureServer.Data.Configurations
                 .HasMaxLength(255)
                 .IsRequired(false);
             builder.Property(u => u.EloRating)
-                .HasDefaultValue(0)
+                .HasDefaultValue(-1)
                 .IsRequired();
 
             builder.HasOne(u => u.Role)

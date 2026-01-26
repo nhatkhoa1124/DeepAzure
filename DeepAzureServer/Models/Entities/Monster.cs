@@ -17,7 +17,7 @@
         public int GrowthResistance { get; set; }
         public int BaseSpeed { get; set; }
         public int GrowthSpeed { get; set; }
-        public int Price { get; set; }
+        public int? Price { get; set; }
         public int PrimaryElementId { get; set; }
         public int? SecondaryElementId { get; set; }
         public int? AbilityId { get; set; }

@@ -44,8 +44,7 @@ namespace DeepAzureServer.Data.Configurations
             builder.Property(m => m.GrowthSpeed)
                 .IsRequired();
             builder.Property(m => m.Price)
-                .HasDefaultValue(1)
-                .IsRequired();
+                .IsRequired(false);
 
             builder.HasOne(m => m.PrimaryElement)
                 .WithMany()
