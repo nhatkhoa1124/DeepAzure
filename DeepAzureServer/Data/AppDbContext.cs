@@ -1,15 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DeepAzureServer.Models.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace DeepAzureServer.Data
 {
     public class AppDbContext : DbContext
     {
-        private readonly DbContext _context;
+        public DbSet<User> Users { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
-
-        public AppDbContext(DbContext context)
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            _context = context;
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

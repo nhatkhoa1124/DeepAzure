@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Common" Version="10.0.2" />
     <PackageReference Include="Scalar.AspNetCore" Version="1.2.7" />
@@ -24,8 +25,6 @@
   <ItemGroup>
     <Folder Include="Models\Responses\" />
     <Folder Include="Models\Requests\" />
-    <Folder Include="Repositories\Interfaces\" />
-    <Folder Include="Repositories\Implementations\" />
   </ItemGroup>
 
 </Project>

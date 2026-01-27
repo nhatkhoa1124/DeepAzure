@@ -1,0 +1,61 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: deepazure-postgres
+    environment:
+      POSTGRES_USER: ${DB_USER}       # <--- Pulls from .env
+      POSTGRES_PASSWORD: ${DB_PASSWORD} # <--- Pulls from .env
+      POSTGRES_DB: ${DB_NAME}         # <--- Pulls from .env
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - deepazure-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: DeepAzureServer/Dockerfile
+    container_name: deepazure-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=http://+:8080
+      - ConnectionStrings__DefaultConnection=Host=postgres;Port=5432;Database=${DB_NAME};Username=${DB_USER};Password=${DB_PASSWORD};Include Error Detail=true
+    ports:
+      - "5000:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - deepazure-network
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: deepazure-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL}       # <--- Pulls from .env
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD} # <--- Pulls from .env
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    ports:
+      - "5050:80"
+    networks:
+      - deepazure-network
+    depends_on:
+      - postgres
+
+volumes:
+  postgres-data:
+
+networks:
+  deepazure-network:
+    driver: bridge

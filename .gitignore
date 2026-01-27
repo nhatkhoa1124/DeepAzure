@@ -6,4 +6,6 @@ obj/
 # Ignore appsettings
 **/appsettings.json
 **/appsettings.Development.json
-/DeepAzureServer/appsettings.Docker.json
+**/appsettings.Docker.json
+
+.env
