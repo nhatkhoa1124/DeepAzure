@@ -11,6 +11,6 @@ namespace DeepAzureServer.Models.Entities
         public int EffectPower { get; set; }
         public int? Price { get; set; }
 
-        public ICollection<UserItem> UserItems = new List<UserItem>();
+        public ICollection<UserItem> UserItems { get; set; } = new List<UserItem>();
     }
 }

@@ -9,6 +9,6 @@
 
         public User? User1 { get; set; }
         public User? User2 { get; set; }
-        public ICollection<Message> Messages = new List<Message>();
+        public ICollection<Message> Messages { get; set; } = new List<Message>();
     }
 }

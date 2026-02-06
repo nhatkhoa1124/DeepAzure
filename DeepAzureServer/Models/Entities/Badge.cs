@@ -6,6 +6,6 @@
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public ICollection<UserBadge> UserBadges = new List<UserBadge>();
+        public ICollection<UserBadge> UserBadges { get; set; } = new List<UserBadge>();
     }
 }

@@ -25,6 +25,6 @@
         public Element? PrimaryElement { get; set; }
         public Element? SecondaryElement { get; set; }
         public Ability? Ability { get; set; }
-        public ICollection<UserMonster> UserMonsters = new List<UserMonster>();
+        public ICollection<UserMonster> UserMonsters { get; set; } = new List<UserMonster>();
     }
 }

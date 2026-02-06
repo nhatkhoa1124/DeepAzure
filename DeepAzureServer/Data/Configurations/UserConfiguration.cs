@@ -8,26 +8,12 @@ namespace DeepAzureServer.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.ConfigureBaseAuditable();
 
             builder.ToTable("Users");
-            builder.HasKey(u => u.Id);
 
-            builder.Property(u => u.Username)
-                .HasMaxLength(50)
-                .IsRequired();
-            builder.Property(u => u.PasswordHash)
-                .HasMaxLength(255)
-                .IsRequired();
-            builder.Property(u => u.PasswordSalt)
-                .HasMaxLength(255)
-                .IsRequired();
             builder.Property(u => u.DisplayName)
                 .HasMaxLength(100)
                 .IsRequired(false);
-            builder.Property(u => u.Email)
-                .HasMaxLength(100)
-                .IsRequired();
             builder.Property(u => u.LastActive)
                 .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'")
                 .IsRequired();
@@ -40,11 +26,12 @@ namespace DeepAzureServer.Data.Configurations
             builder.Property(u => u.EloRating)
                 .HasDefaultValue(-1)
                 .IsRequired();
-
-            builder.HasOne(u => u.Role)
-                .WithMany(r => r.Users)
-                .HasForeignKey(u => u.RoleId)
-                .OnDelete(DeleteBehavior.Restrict);
+            builder.Property(u => u.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+            builder.Property(u => u.UpdatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
         }
     }
 }

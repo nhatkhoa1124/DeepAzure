@@ -9,6 +9,6 @@ namespace DeepAzureServer.Models.Entities
         public string Description { get; set; }
         public StatusEffectType EffectType { get; set; }
 
-        public ICollection<Technique> Techniques = new List<Technique>();
+        public ICollection<Technique> Techniques { get; set; } = new List<Technique>();
     }
 }

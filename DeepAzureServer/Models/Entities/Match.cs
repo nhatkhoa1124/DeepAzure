@@ -10,6 +10,6 @@ namespace DeepAzureServer.Models.Entities
         public DateTime? EndedAt { get; set; }
         public JsonDocument? ReplayLog { get; set; }
 
-        public ICollection<UserMatch> UserMatches = new List<UserMatch>();
+        public ICollection<UserMatch> UserMatches { get; set; } = new List<UserMatch>();
     }
 }
