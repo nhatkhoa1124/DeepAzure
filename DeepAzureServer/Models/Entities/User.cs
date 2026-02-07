@@ -10,7 +10,8 @@ namespace DeepAzureServer.Models.Entities
         public int? EloRating { get; set; }
         public DateTime LastActive { get; set; }
         public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
 
         public ICollection<UserBadge> UserBadges { get; set; } = new List<UserBadge>();
         public ICollection<UserMatch> UserMatches { get; set; } = new List<UserMatch>();
