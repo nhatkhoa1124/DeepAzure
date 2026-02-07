@@ -12,8 +12,7 @@ namespace DeepAzureServer.Data.Configurations
                 .IsRequired()
                 .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
             builder.Property(e => e.UpdatedAt)
-                .IsRequired()
-                .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
+                .IsRequired(false);
             builder.Property(e => e.DeletedAt)
                 .IsRequired(false);
         }
