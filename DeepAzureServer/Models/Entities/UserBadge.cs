@@ -2,7 +2,7 @@
 {
     public class UserBadge : BaseAuditable
     {
-        public int UserId { get; set; }
+        public long UserId { get; set; }
         public int BadgeId { get; set; }
         public DateTime UnlockedAt { get; set; }
 

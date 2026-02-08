@@ -2,7 +2,7 @@
 {
     public class UserItem : BaseAuditable
     {
-        public int UserId { get; set; }
+        public long UserId { get; set; }
         public int ItemId { get; set; }
         public int Quantity { get; set; }
 

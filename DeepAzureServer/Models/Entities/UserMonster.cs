@@ -8,7 +8,7 @@
         public int Exp { get; set; }
         public int TeamSlot { get; set; }
         public int MonsterId { get; set; }
-        public int OwnerId { get; set; }
+        public long OwnerId { get; set; }
         public int Move1Id { get; set; }
         public int? Move2Id { get; set; }
         public int? Move3Id { get; set; }
