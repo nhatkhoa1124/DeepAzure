@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Scalar.AspNetCore;
 using System.Text;
 
 namespace DeepAzureServer
@@ -47,6 +48,20 @@ namespace DeepAzureServer
                     ValidateLifetime = true,
                     ClockSkew = TimeSpan.Zero
                 };
+
+                options.Events = new JwtBearerEvents
+                {
+                    OnChallenge = context =>
+                    {
+                        context.HandleResponse();
+
+                        // Return a 401 Unauthorized + Error Message
+                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                        context.Response.ContentType = "application/json";
+                        var result = System.Text.Json.JsonSerializer.Serialize(new { error = "You are not authorized" });
+                        return context.Response.WriteAsync(result);
+                    }
+                };
             });
 
             builder.Services.AddControllers();
@@ -57,14 +72,18 @@ namespace DeepAzureServer
             builder.Services.AddScoped<IAuthService, AuthService>();
 
             var app = builder.Build();
+
+            //Middlewares
+            app.UseExceptionHandler();
+
             app.MapHealthChecks("/health");
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
+                app.MapScalarApiReference();
             }
 
-            app.UseHttpsRedirection();
-
+            //app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
 
