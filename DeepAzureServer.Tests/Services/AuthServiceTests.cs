@@ -7,11 +7,6 @@ using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DeepAzureServer.Tests.Services
 {
@@ -84,11 +79,31 @@ namespace DeepAzureServer.Tests.Services
             result.Token.Should().BeNullOrEmpty();
         }
 
+        [Fact]
+        public async Task RegisterAsync_ShouldReturnErrors_WhenEmailAlreadyExists()
+        {
+            var request = new RegisterRequest()
+            {
+                Email = "alreadyexisted@gmail.com",
+                Password = "StrongPassword123!"
+            };
+            _userManagerMock.Setup(x => x.FindByEmailAsync(request.Email))
+            .ReturnsAsync(new User {Email = "alreadyexisted@gmail.com"});
+
+            var result = await _authService.RegisterAsync(request);
+
+            result.Success.Should().BeFalse();
+            result.Errors.Should().Contain("Email already in use");
+
+            // Object might be created in database even though Success is false
+            _userManagerMock.Verify(x => x.CreateAsync(It.IsAny<User>(), It.IsAny<string>()), Times.Never);
+        }
+
         // --- LOGIN TESTS ---
         [Fact]
         public async Task LoginAsync_ShouldReturnTrue_WhenCredentialsAreCorrect()
         {
-            var request = new LoginRequest()
+            var request = new LoginRequest
             {
                 Email = "correctlogin@gmail.com",
                 Password = "StrongPassword123!"
@@ -104,6 +119,24 @@ namespace DeepAzureServer.Tests.Services
             result.Success.Should().BeTrue();
             result.Errors.Should().BeNullOrEmpty();
             result.Token.Should().NotBeNullOrEmpty();
+        }
+
+        [Fact]
+        public async Task LoginAsync_ShouldReturnErrors_WhenEmailDoesNotExists()
+        {
+            var request = new LoginRequest
+            {
+                Email = "notexists@gmail.com",
+                Password = "StrongPassword123!"
+            };
+
+            _userManagerMock.Setup(x => x.FindByEmailAsync(request.Email))
+                .ReturnsAsync((User) null);
+
+            var result = await _authService.LoginAsync(request);
+
+            result.Success.Should().BeFalse();
+            result.Errors.Should().Contain("Invalid login attempt");
         }
     }
 }
