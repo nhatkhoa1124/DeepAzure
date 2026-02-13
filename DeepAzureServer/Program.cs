@@ -118,10 +118,7 @@ namespace DeepAzureServer
                 var services = scope.ServiceProvider;
                 try
                 {
-                    var context = services.GetRequiredService<AppDbContext>();
-                    await context.Database.MigrateAsync();
-
-                    await RoleSeeder.SeedRolesAsync(services);
+                    await DbInitializer.SeedData(services);
                 }
                 catch (Exception ex)
                 {
