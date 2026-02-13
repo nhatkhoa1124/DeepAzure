@@ -42,11 +42,13 @@ namespace DeepAzureServer.Tests.Services
             };
 
             _userManagerMock.Setup(x => x.FindByEmailAsync(request.Email))
-                .ReturnsAsync((User) null); // This checks for existing email
+                .ReturnsAsync((User)null); // This checks for existing email
             _userManagerMock.Setup(x => x.CreateAsync(It.IsAny<User>(), It.IsAny<string>()))
                 .ReturnsAsync(IdentityResult.Success);
             _userManagerMock.Setup(x => x.AddToRoleAsync(It.IsAny<User>(), It.IsAny<string>()))
                 .ReturnsAsync(IdentityResult.Success);
+            _userManagerMock.Setup(x => x.GetRolesAsync(It.IsAny<User>()))
+                .ReturnsAsync(new List<string>());
 
             var result = await _authService.RegisterAsync(request);
 
@@ -65,8 +67,8 @@ namespace DeepAzureServer.Tests.Services
             };
 
             _userManagerMock.Setup(x => x.FindByEmailAsync(request.Email))
-                .ReturnsAsync((User) null);
-            var expectedError = new IdentityError { Description = "Password too weak"};
+                .ReturnsAsync((User)null);
+            var expectedError = new IdentityError { Description = "Password too weak" };
             _userManagerMock.Setup(x => x.CreateAsync(It.IsAny<User>(), It.IsAny<string>()))
                 .ReturnsAsync(IdentityResult.Failed(expectedError));
             _userManagerMock.Setup(x => x.AddToRoleAsync(It.IsAny<User>(), It.IsAny<string>()))
@@ -88,7 +90,7 @@ namespace DeepAzureServer.Tests.Services
                 Password = "StrongPassword123!"
             };
             _userManagerMock.Setup(x => x.FindByEmailAsync(request.Email))
-            .ReturnsAsync(new User {Email = "alreadyexisted@gmail.com"});
+            .ReturnsAsync(new User { Email = "alreadyexisted@gmail.com" });
 
             var result = await _authService.RegisterAsync(request);
 
@@ -113,6 +115,8 @@ namespace DeepAzureServer.Tests.Services
                 .ReturnsAsync(new User { Email = request.Email, UserName = "Customer" });
             _userManagerMock.Setup(x => x.CheckPasswordAsync(It.IsAny<User>(), It.IsAny<string>()))
                 .ReturnsAsync(true);
+            _userManagerMock.Setup(x => x.GetRolesAsync(It.IsAny<User>()))
+                .ReturnsAsync(new List<string> { "User" });
 
             var result = await _authService.LoginAsync(request);
 
@@ -131,7 +135,7 @@ namespace DeepAzureServer.Tests.Services
             };
 
             _userManagerMock.Setup(x => x.FindByEmailAsync(request.Email))
-                .ReturnsAsync((User) null);
+                .ReturnsAsync((User)null);
 
             var result = await _authService.LoginAsync(request);
 
