@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "Prism Tower",
+    "Description": "Refracts light to boost Magic power by 20%.",
+    "LogicKey": "PASSIVE_STAT_BOOST",
+    "LogicData": "{\"stat\": \"Magic\", \"multiplier\": 1.2}"
+  },
+  {
+    "Name": "Night Shroud",
+    "Description": "Shadows protect the user, granting 15% evasion against physical attacks.",
+    "LogicKey": "PASSIVE_EVASION",
+    "LogicData": "{\"type\": \"Physical\", \"chance\": 0.15}"
+  }
+]

@@ -1,0 +1,23 @@
+[
+  {
+    "Name": "Small Potion",
+    "Description": "Restores 20 HP to a single monster.",
+    "EffectType": 1,
+    "EffectPower": 20,
+    "Price": 50
+  },
+  {
+    "Name": "Antidote",
+    "Description": "Cures the Poison status effect.",
+    "EffectType": 2,
+    "EffectPower": 0,
+    "Price": 30
+  },
+  {
+    "Name": "Mobility Herb",
+    "Description": "Cures the Paralysis status effect.",
+    "EffectType": 3,
+    "EffectPower": 0,
+    "Price": 30
+  }
+]

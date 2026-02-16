@@ -1,0 +1,287 @@
+[
+  {
+    "Name": "Tackle",
+    "Description": "A full-body charge.",
+    "StrengthDamage": 40,
+    "MagicDamage": 0,
+    "Target": 2,
+    "StatType": 1,
+    "StatAmount": 0,
+    "ElementName": "Norma"
+  },
+  {
+    "Name": "Focus",
+    "Description": "Concentrates mind to boost Attack power.",
+    "StrengthDamage": 0,
+    "MagicDamage": 0,
+    "Target": 1,
+    "StatType": 4,
+    "StatAmount": 10,
+    "ElementName": "Norma"
+  },
+  {
+    "Name": "Quick Strike",
+    "Description": "A lightning fast strike.",
+    "StrengthDamage": 40,
+    "MagicDamage": 0,
+    "Target": 2,
+    "StatType": 1,
+    "StatAmount": 0,
+    "ElementName": "Norma"
+  },
+
+  {
+    "Name": "Ember",
+    "Description": "A small flame.",
+    "StrengthDamage": 0,
+    "MagicDamage": 40,
+    "Target": 2,
+    "StatType": 1,
+    "StatAmount": 0,
+    "ElementName": "Ignis"
+  },
+  {
+    "Name": "Flame Wheel",
+    "Description": "Charges while covered in fire.",
+    "StrengthDamage": 60,
+    "MagicDamage": 10,
+    "Target": 2,
+    "StatType": 1,
+    "StatAmount": 0,
+    "ElementName": "Ignis"
+  },
+  {
+    "Name": "Heat Up",
+    "Description": "Raises body temperature to boost Attack.",
+    "StrengthDamage": 0,
+    "MagicDamage": 0,
+    "Target": 1,
+    "StatType": 4,
+    "StatAmount": 15,
+    "ElementName": "Ignis"
+  },
+  {
+    "Name": "Fireball",
+    "Description": "Hurls a ball of fire.",
+    "StrengthDamage": 0,
+    "MagicDamage": 75,
+    "Target": 2,
+    "StatType": 1,
+    "StatAmount": 0,
+    "ElementName": "Ignis"
+  },
+  {
+    "Name": "Inferno",
+    "Description": "Incinerates the enemy.",
+    "StrengthDamage": 0,
+    "MagicDamage": 110,
+    "Target": 2,
+    "StatType": 1,
+    "StatAmount": 0,
+    "ElementName": "Ignis"
+  },
+
+  {
+    "Name": "Bubble",
+    "Description": "A simple bubble.",
+    "StrengthDamage": 0,
+    "MagicDamage": 40,
+    "Target": 2,
+    "StatType": 1,
+    "StatAmount": 0,
+    "ElementName": "Aqua"
+  },
+  {
+    "Name": "Aqua Jet",
+    "Description": "Strikes with water speed.",
+    "StrengthDamage": 50,
+    "MagicDamage": 10,
+    "Target": 2,
+    "StatType": 1,
+    "StatAmount": 0,
+    "ElementName": "Aqua"
+  },
+  {
+    "Name": "Iron Shell",
+    "Description": "Hardens shell to boost Defense.",
+    "StrengthDamage": 0,
+    "MagicDamage": 0,
+    "Target": 1,
+    "StatType": 5,
+    "StatAmount": 20,
+    "ElementName": "Aqua"
+  },
+  {
+    "Name": "Water Pulse",
+    "Description": "A sonic wave of water.",
+    "StrengthDamage": 0,
+    "MagicDamage": 70,
+    "Target": 2,
+    "StatType": 1,
+    "StatAmount": 0,
+    "ElementName": "Aqua"
+  },
+  {
+    "Name": "Hydro Cannon",
+    "Description": "Blasts a huge volume of water.",
+    "StrengthDamage": 0,
+    "MagicDamage": 120,
+    "Target": 2,
+    "StatType": 1,
+    "StatAmount": 0,
+    "ElementName": "Aqua"
+  },
+
+  {
+    "Name": "Vine Whip",
+    "Description": "Strikes with thin vines.",
+    "StrengthDamage": 45,
+    "MagicDamage": 0,
+    "Target": 2,
+    "StatType": 1,
+    "StatAmount": 0,
+    "ElementName": "Herba"
+  },
+  {
+    "Name": "Synthesis",
+    "Description": "Absorbs sunlight to heal HP.",
+    "StrengthDamage": 0,
+    "MagicDamage": 0,
+    "Target": 1,
+    "StatType": 3,
+    "StatAmount": 30,
+    "ElementName": "Herba"
+  },
+  {
+    "Name": "Razor Leaf",
+    "Description": "Slashes with sharp leaves.",
+    "StrengthDamage": 0,
+    "MagicDamage": 60,
+    "Target": 2,
+    "StatType": 1,
+    "StatAmount": 0,
+    "ElementName": "Herba"
+  },
+  {
+    "Name": "Leaf Blade",
+    "Description": "Slashes with a blade of grass.",
+    "StrengthDamage": 80,
+    "MagicDamage": 0,
+    "Target": 2,
+    "StatType": 1,
+    "StatAmount": 0,
+    "ElementName": "Herba"
+  },
+  {
+    "Name": "Solar Beam",
+    "Description": "Fires focused solar energy.",
+    "StrengthDamage": 0,
+    "MagicDamage": 115,
+    "Target": 2,
+    "StatType": 1,
+    "StatAmount": 0,
+    "ElementName": "Herba"
+  },
+
+  {
+    "Name": "Shine",
+    "Description": "Emits a bright light.",
+    "StrengthDamage": 0,
+    "MagicDamage": 35,
+    "Target": 2,
+    "StatType": 1,
+    "StatAmount": 0,
+    "ElementName": "Lux"
+  },
+  {
+    "Name": "Flash",
+    "Description": "Blinds the foe, lowering their Attack capability.",
+    "StrengthDamage": 0,
+    "MagicDamage": 10,
+    "Target": 2,
+    "StatType": 6,
+    "StatAmount": 15,
+    "ElementName": "Lux"
+  },
+  {
+    "Name": "Prism Guard",
+    "Description": "Raises Defense against magic.",
+    "StrengthDamage": 0,
+    "MagicDamage": 0,
+    "Target": 1,
+    "StatType": 5,
+    "StatAmount": 20,
+    "ElementName": "Lux"
+  },
+  {
+    "Name": "Light Ray",
+    "Description": "Fires a laser of light.",
+    "StrengthDamage": 0,
+    "MagicDamage": 75,
+    "Target": 2,
+    "StatType": 1,
+    "StatAmount": 0,
+    "ElementName": "Lux"
+  },
+  {
+    "Name": "Judgment",
+    "Description": "Judges the wicked with holy light.",
+    "StrengthDamage": 0,
+    "MagicDamage": 120,
+    "Target": 2,
+    "StatType": 1,
+    "StatAmount": 0,
+    "ElementName": "Lux"
+  },
+
+  {
+    "Name": "Shadow Scratch",
+    "Description": "A claw infused with darkness.",
+    "StrengthDamage": 45,
+    "MagicDamage": 5,
+    "Target": 2,
+    "StatType": 1,
+    "StatAmount": 0,
+    "ElementName": "Tenebrae"
+  },
+  {
+    "Name": "Fear",
+    "Description": "Intimidates foe, lowering Defense.",
+    "StrengthDamage": 0,
+    "MagicDamage": 0,
+    "Target": 2,
+    "StatType": 7,
+    "StatAmount": 15,
+    "ElementName": "Tenebrae"
+  },
+  {
+    "Name": "Dark Pulse",
+    "Description": "Emits a horrible aura.",
+    "StrengthDamage": 0,
+    "MagicDamage": 65,
+    "Target": 2,
+    "StatType": 1,
+    "StatAmount": 0,
+    "ElementName": "Tenebrae"
+  },
+  {
+    "Name": "Night Slash",
+    "Description": "Tears through shadows to strike.",
+    "StrengthDamage": 85,
+    "MagicDamage": 0,
+    "Target": 2,
+    "StatType": 1,
+    "StatAmount": 0,
+    "ElementName": "Tenebrae"
+  },
+  {
+    "Name": "Abyss",
+    "Description": "Crushes the enemy with gravity.",
+    "StrengthDamage": 0,
+    "MagicDamage": 115,
+    "Target": 2,
+    "StatType": 1,
+    "StatAmount": 0,
+    "ElementName": "Tenebrae"
+  }
+]

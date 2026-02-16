@@ -1,0 +1,27 @@
+[
+  {
+    "Name": "Poison",
+    "Description": "Inflicts damage over time every turn.",
+    "EffectType": 1
+  },
+  {
+    "Name": "Paralysis",
+    "Description": "Reduces speed and has a chance to prevent movement.",
+    "EffectType": 2
+  },
+  {
+    "Name": "Sleep",
+    "Description": "Puts the target to sleep, preventing actions for 1-3 turns.",
+    "EffectType": 3
+  },
+  {
+    "Name": "Burn",
+    "Description": "Inflicts damage over time and halves physical strength.",
+    "EffectType": 4
+  },
+  {
+    "Name": "Confusion",
+    "Description": "The target has a 50% chance to hurt itself instead of attacking.",
+    "EffectType": 5
+  }
+]
