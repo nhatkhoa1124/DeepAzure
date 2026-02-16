@@ -1,4 +1,6 @@
-﻿using DeepAzureServer.Models.Entities;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
+using DeepAzureServer.Models.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -66,37 +68,21 @@ namespace DeepAzureServer.Data
 
         public static async Task<Dictionary<string, Element>> SeedElements(AppDbContext context)
         {
-            var elementDict = new Dictionary<string, Element>
+            if (await context.Elements.AnyAsync())
             {
-                {
-                    "Norma",
-                    new Element { Name = "Norma", Description = "Normal type." }
-                },
-                {
-                    "Ignis",
-                    new Element { Name = "Ignis", Description = "Fire element." }
-                },
-                {
-                    "Aqua",
-                    new Element { Name = "Aqua", Description = "Water element." }
-                },
-                {
-                    "Herba",
-                    new Element { Name = "Herba", Description = "Grass element." }
-                },
-                {
-                    "Lux",
-                    new Element { Name = "Lux", Description = "Light element." }
-                },
-                {
-                    "Tenebrae",
-                    new Element { Name = "Tenebrae", Description = "Dark element." }
-                },
-            };
-            context.Elements.AddRange(elementDict.Values);
+                return await context.Elements.ToDictionaryAsync(e => e.Name);
+            }
+
+            var jsonPath = Path.Combine(AppContext.BaseDirectory, "Data", "Seeds", "elements.json");
+            var jsonData = await File.ReadAllTextAsync(jsonPath);
+            var elementList = JsonSerializer.Deserialize<List<Element>>(jsonData);
+            if (elementList == null)
+                return new Dictionary<string, Element>();
+
+            context.Elements.AddRange(elementList);
             await context.SaveChangesAsync();
 
-            return elementDict;
+            return elementList.ToDictionary(e => e.Name);
         }
 
         public static async Task SeedMatchups(
@@ -104,32 +90,42 @@ namespace DeepAzureServer.Data
             Dictionary<string, Element> elements
         )
         {
-            var matchups = new List<ElementMatchup>()
+            if (await context.ElementMatchups.AnyAsync())
+                return;
+
+            var jsonPath = Path.Combine(
+                AppContext.BaseDirectory,
+                "Data",
+                "Seeds",
+                "element_matchups.json"
+            );
+            var jsonData = await File.ReadAllTextAsync(jsonPath);
+            var matchupDtos = JsonSerializer.Deserialize<List<MatchupSeedDto>>(jsonData);
+            var matchups = new List<ElementMatchup>();
+
+            foreach (var dto in matchupDtos)
             {
-                CreateMatchup(elements["Ignis"], elements["Herba"], 2.0f),
-                CreateMatchup(elements["Herba"], elements["Aqua"], 2.0f),
-                CreateMatchup(elements["Aqua"], elements["Ignis"], 2.0f),
-                CreateMatchup(elements["Lux"], elements["Tenebrae"], 1.5f),
-                CreateMatchup(elements["Tenebrae"], elements["Lux"], 1.5f),
-            };
+                if (
+                    elements.TryGetValue(dto.AttackerName, out var attacker)
+                    && elements.TryGetValue(dto.DefenderName, out var defender)
+                )
+                {
+                    matchups.Add(
+                        new ElementMatchup
+                        {
+                            AttackerId = attacker.Id,
+                            DefenderId = defender.Id,
+                            Multiplier = dto.Multiplier,
+                        }
+                    );
+                }
+            }
 
             context.ElementMatchups.AddRange(matchups);
             await context.SaveChangesAsync();
         }
 
-        // Helpers
-        private static ElementMatchup CreateMatchup(
-            Element attacker,
-            Element defender,
-            float multiplier
-        )
-        {
-            return new ElementMatchup
-            {
-                AttackerId = attacker.Id,
-                DefenderId = defender.Id,
-                Multiplier = multiplier,
-            };
-        }
+        // Avoid using the whole class for security
+        private record MatchupSeedDto(string AttackerName, string DefenderName, float Multiplier);
     }
 }

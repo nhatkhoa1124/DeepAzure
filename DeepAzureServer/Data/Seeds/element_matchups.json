@@ -1,0 +1,27 @@
+[
+  {
+    "AttackerName": "Ignis",
+    "DefenderName": "Herba",
+    "Multiplier": 2.0
+  },
+  {
+    "AttackerName": "Herba",
+    "DefenderName": "Aqua",
+    "Multiplier": 2.0
+  },
+  {
+    "AttackerName": "Aqua",
+    "DefenderName": "Ignis",
+    "Multiplier": 2.0
+  },
+  {
+    "AttackerName": "Lux",
+    "DefenderName": "Tenebrae",
+    "Multiplier": 1.5
+  },
+  {
+    "AttackerName": "Tenebrae",
+    "DefenderName": "Lux",
+    "Multiplier": 1.5
+  }
+]

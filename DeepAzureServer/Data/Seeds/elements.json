@@ -1,0 +1,26 @@
+[
+  {
+    "Name": "Norma",
+    "Description": "Normal type."
+  },
+  {
+    "Name": "Ignis",
+    "Description": "Fire element."
+  },
+  {
+    "Name": "Aqua",
+    "Description": "Water element."
+  },
+  {
+    "Name": "Herba",
+    "Description": "Grass element."
+  },
+  {
+    "Name": "Lux",
+    "Description": "Light element."
+  },
+  {
+    "Name": "Tenebrae",
+    "Description": "Dark element."
+  }
+]
