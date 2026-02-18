@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Text.Json;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -22,7 +21,7 @@ namespace DeepAzureServer.Migrations
                     Name = table.Column<string>(type: "character varying(25)", maxLength: 25, nullable: false),
                     Description = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: false),
                     LogicKey = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
-                    LogicData = table.Column<JsonDocument>(type: "jsonb", nullable: false),
+                    LogicData = table.Column<string>(type: "text", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "NOW() AT TIME ZONE 'UTC'"),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
@@ -95,7 +94,7 @@ namespace DeepAzureServer.Migrations
                     Status = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false),
                     MatchType = table.Column<string>(type: "character varying(15)", maxLength: 15, nullable: false),
                     EndedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-                    ReplayLog = table.Column<JsonDocument>(type: "jsonb", nullable: true),
+                    ReplayLog = table.Column<string>(type: "text", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false, defaultValueSql: "NOW() AT TIME ZONE 'UTC'"),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
                     DeletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
@@ -443,7 +442,7 @@ namespace DeepAzureServer.Migrations
                 {
                     UserId = table.Column<long>(type: "bigint", nullable: false),
                     MatchId = table.Column<int>(type: "integer", nullable: false),
-                    TeamSnapshot = table.Column<JsonDocument>(type: "jsonb", nullable: false),
+                    TeamSnapshot = table.Column<string>(type: "text", nullable: false),
                     EloChange = table.Column<int>(type: "integer", nullable: false, defaultValue: 0),
                     Outcome = table.Column<string>(type: "text", nullable: false),
                     GoldEarned = table.Column<int>(type: "integer", nullable: false, defaultValue: 0),

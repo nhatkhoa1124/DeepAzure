@@ -6,7 +6,7 @@ namespace DeepAzureServer.Models.Entities
     {
         public long UserId { get; set; }
         public int MatchId { get; set; }
-        public JsonDocument TeamSnapshot { get; set; }
+        public string TeamSnapshot { get; set; }
         public int EloChange { get; set; }
         public string Outcome { get; set; }
         public int GoldEarned { get; set; }

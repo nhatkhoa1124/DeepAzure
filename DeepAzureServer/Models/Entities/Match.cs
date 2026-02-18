@@ -8,7 +8,7 @@ namespace DeepAzureServer.Models.Entities
         public string Status { get; set; }
         public string MatchType { get; set; }
         public DateTime? EndedAt { get; set; }
-        public JsonDocument? ReplayLog { get; set; }
+        public string? ReplayLog { get; set; }
 
         public ICollection<UserMatch> UserMatches { get; set; } = new List<UserMatch>();
     }

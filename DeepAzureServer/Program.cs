@@ -2,6 +2,8 @@ using DeepAzureServer.Data;
 using DeepAzureServer.Data.Configurations;
 using DeepAzureServer.Infrastructures;
 using DeepAzureServer.Models.Entities;
+using DeepAzureServer.Repositories.Implementations;
+using DeepAzureServer.Repositories.Interfaces;
 using DeepAzureServer.Services.Implementations;
 using DeepAzureServer.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -99,7 +101,11 @@ namespace DeepAzureServer
             builder.Services.AddHealthChecks()
                 .AddNpgSql(builder.Configuration.GetConnectionString("DefaultConnection")!);
 
+            // --- REPO INJECT
+            builder.Services.AddScoped<IMonsterRepository, MonsterRepository>();
+            // --- SERVICE INJECT ---
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<IMonsterService, MonsterService>();
 
             builder.Services.AddCors(options =>
             {

@@ -22,7 +22,7 @@
         public int? SecondaryElementId { get; set; }
         public int? AbilityId { get; set; }
 
-        public Element? PrimaryElement { get; set; }
+        public Element PrimaryElement { get; set; }
         public Element? SecondaryElement { get; set; }
         public Ability? Ability { get; set; }
         public ICollection<UserMonster> UserMonsters { get; set; } = new List<UserMonster>();
