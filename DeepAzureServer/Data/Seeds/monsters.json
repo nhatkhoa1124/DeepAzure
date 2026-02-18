@@ -16,7 +16,8 @@
     "GrowthSpeed": 3,
     "Price": 100,
     "PrimaryElementName": "Ignis",
-    "SecondaryElementName": null
+    "SecondaryElementName": null,
+    "AbilityName": null
   },
   {
     "Name": "Hydrofin",
@@ -35,7 +36,8 @@
     "GrowthSpeed": 1,
     "Price": 100,
     "PrimaryElementName": "Aqua",
-    "SecondaryElementName": null
+    "SecondaryElementName": null,
+    "AbilityName": null
   },
   {
     "Name": "Terrabud",
@@ -54,7 +56,8 @@
     "GrowthSpeed": 2,
     "Price": 100,
     "PrimaryElementName": "Herba",
-    "SecondaryElementName": "Norma"
+    "SecondaryElementName": "Norma",
+    "AbilityName": null
   },
   {
     "Name": "Lumiwisp",
@@ -73,7 +76,8 @@
     "GrowthSpeed": 4,
     "Price": 150,
     "PrimaryElementName": "Lux",
-    "SecondaryElementName": null
+    "SecondaryElementName": null,
+    "AbilityName": "Prism Tower"
   },
   {
     "Name": "Noctshade",
@@ -92,6 +96,7 @@
     "GrowthSpeed": 2,
     "Price": 150,
     "PrimaryElementName": "Tenebrae",
-    "SecondaryElementName": "Norma"
+    "SecondaryElementName": "Norma",
+    "AbilityName": "Night Shroud"
   }
 ]
