@@ -17,6 +17,12 @@
             PageSize = pageSize;
         }
 
+        public PagedResult<R> Map<R>(Func<T, R> selector)
+        {
+            var mappedItems = Items.Select(selector).ToList();
+            return new PagedResult<R>(mappedItems, TotalCount, PageNumber, PageSize);
+        }
+
         public int TotalPages => (int)Math.Ceiling((double)TotalCount / PageSize);
     }
 }
