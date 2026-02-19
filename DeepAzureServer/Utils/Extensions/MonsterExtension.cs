@@ -10,7 +10,7 @@ namespace DeepAzureServer.Utils.Extensions
             return new MonsterResponse
             {
                 Id = monster.Id,
-                Name =monster.Name,
+                Name = monster.Name,
                 Description = monster.Description,
                 BaseHealth = monster.BaseHealth,
                 BaseStrength = monster.BaseStrength,

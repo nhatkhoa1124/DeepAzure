@@ -5,13 +5,19 @@ namespace DeepAzureServer.Utils.Extensions
 {
     public static class ElementExtension
     {
-        public static ReferenceDto ToReferenceDto(this Element element)
+        public static ElementResponse ToResponseDto(this Element element)
         {
-            return new ReferenceDto
+            return new ElementResponse
             {
                 Id = element.Id,
-                Name = element.Name
+                Name = element.Name,
+                Description = element.Description,
             };
+        }
+
+        public static ReferenceDto ToReferenceDto(this Element element)
+        {
+            return new ReferenceDto { Id = element.Id, Name = element.Name };
         }
     }
 }
