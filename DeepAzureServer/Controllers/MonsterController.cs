@@ -1,4 +1,5 @@
-﻿using DeepAzureServer.Models.Responses;
+﻿using DeepAzureServer.Models.Common;
+using DeepAzureServer.Models.Responses;
 using DeepAzureServer.Services.Interfaces;
 using DeepAzureServer.Utils.Extensions;
 using Microsoft.AspNetCore.Mvc;
@@ -17,19 +18,16 @@ namespace DeepAzureServer.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MonsterResponse>>> GetAllAsync(
-            int pageNumber = 1,
-            int pageSize = 20
+        public async Task<ActionResult<PagedResult<MonsterResponse>>> GetPagedAsync(
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 20
         )
         {
-            var pagedMonsters = await _monsterService.GetAllAsync(pageNumber, pageSize);
-            var monsters = pagedMonsters.Items;
-            if (!monsters.Any())
-            {
+            var pagedMonsters = await _monsterService.GetPagedAsync(pageNumber, pageSize);
+            if (!pagedMonsters.Items.Any() || pagedMonsters.Items == null)
                 return NoContent();
-            }
-            var response = monsters.Select(m => m.ToResponseDto()).ToList();
-            return Ok(response);
+
+            return Ok(pagedMonsters);
         }
 
         [HttpGet("{id}")]
@@ -38,7 +36,7 @@ namespace DeepAzureServer.Controllers
             var monster = await _monsterService.GetByIdAsync(id);
             if (monster == null)
                 return NotFound();
-            return Ok(monster.ToResponseDto());
+            return Ok(monster);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Text;
 using DeepAzureServer.Data;
 using DeepAzureServer.Data.Configurations;
 using DeepAzureServer.Infrastructures;
@@ -11,7 +12,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
-using System.Text;
 
 namespace DeepAzureServer
 {
@@ -21,101 +21,122 @@ namespace DeepAzureServer
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
+            builder.Services.Configure<JwtSettings>(
+                builder.Configuration.GetSection("JwtSettings")
+            );
             builder.Services.AddDbContext<AppDbContext>(options =>
-                           options.UseNpgsql(
-                               builder.Configuration.GetConnectionString("DefaultConnection"),
-                               npgsqlOptions => npgsqlOptions.MigrationsAssembly("DeepAzureServer")
-                           ));
-            builder.Services.AddIdentity<User, IdentityRole<long>>(options =>
-            {
-                options.User.RequireUniqueEmail = true;
+                options.UseNpgsql(
+                    builder.Configuration.GetConnectionString("DefaultConnection"),
+                    npgsqlOptions => npgsqlOptions.MigrationsAssembly("DeepAzureServer")
+                )
+            );
+            builder
+                .Services.AddIdentity<User, IdentityRole<long>>(options =>
+                {
+                    options.User.RequireUniqueEmail = true;
 
-                if (builder.Environment.IsDevelopment())
-                {
-                    options.Password.RequireDigit = false;
-                    options.Password.RequireLowercase = false;
-                    options.Password.RequireUppercase = false;
-                    options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequiredLength = 3;
-                }
-                else
-                {
-                    options.Password.RequireDigit = true;
-                    options.Password.RequireNonAlphanumeric = true;
-                    options.Password.RequiredLength = 12;
-                }
-            })
+                    if (builder.Environment.IsDevelopment())
+                    {
+                        options.Password.RequireDigit = false;
+                        options.Password.RequireLowercase = false;
+                        options.Password.RequireUppercase = false;
+                        options.Password.RequireNonAlphanumeric = false;
+                        options.Password.RequiredLength = 3;
+                    }
+                    else
+                    {
+                        options.Password.RequireDigit = true;
+                        options.Password.RequireNonAlphanumeric = true;
+                        options.Password.RequiredLength = 12;
+                    }
+                })
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
-            builder.Services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(options =>
-            {
-                var jwtSettings = builder.Configuration.GetSection("JwtSettings").Get<JwtSettings>();
-                var key = Encoding.ASCII.GetBytes(jwtSettings!.SecretKey);
-
-                options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+            builder
+                .Services.AddAuthentication(options =>
                 {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = true,
-                    ValidIssuer = jwtSettings.Issuer,
-                    ValidateAudience = true,
-                    ValidAudience = jwtSettings.Audience,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.Zero
-                };
-
-                options.Events = new JwtBearerEvents
+                    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(options =>
                 {
-                    OnChallenge = context =>
+                    var jwtSettings = builder
+                        .Configuration.GetSection("JwtSettings")
+                        .Get<JwtSettings>();
+                    var key = Encoding.ASCII.GetBytes(jwtSettings!.SecretKey);
+
+                    options.TokenValidationParameters =
+                        new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+                        {
+                            ValidateIssuerSigningKey = true,
+                            IssuerSigningKey = new SymmetricSecurityKey(key),
+                            ValidateIssuer = true,
+                            ValidIssuer = jwtSettings.Issuer,
+                            ValidateAudience = true,
+                            ValidAudience = jwtSettings.Audience,
+                            ValidateLifetime = true,
+                            ClockSkew = TimeSpan.Zero,
+                        };
+
+                    options.Events = new JwtBearerEvents
                     {
-                        context.HandleResponse();
+                        OnChallenge = context =>
+                        {
+                            context.HandleResponse();
 
-                        // Return a 401 Unauthorized + Error Message
-                        context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                        context.Response.ContentType = "application/json";
-                        var result = System.Text.Json.JsonSerializer.Serialize(new { error = "You are not authorized" });
-                        return context.Response.WriteAsync(result);
-                    }
-                };
-            });
+                            // Return a 401 Unauthorized + Error Message
+                            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                            context.Response.ContentType = "application/json";
+                            var result = System.Text.Json.JsonSerializer.Serialize(
+                                new { error = "You are not authorized" }
+                            );
+                            return context.Response.WriteAsync(result);
+                        },
+                    };
+                });
             builder.Services.AddControllers();
             builder.Services.AddOpenApi(options =>
             {
-                options.AddDocumentTransformer((document, context, cancellationToken) =>
-                {
-                    document.Servers = new List<Microsoft.OpenApi.Models.OpenApiServer>
+                options.AddDocumentTransformer(
+                    (document, context, cancellationToken) =>
                     {
-                        new Microsoft.OpenApi.Models.OpenApiServer { Url = "http://localhost:5000" }
-                    };
-                    return Task.CompletedTask;
-                });
+                        document.Servers = new List<Microsoft.OpenApi.Models.OpenApiServer>
+                        {
+                            new Microsoft.OpenApi.Models.OpenApiServer
+                            {
+                                Url = "http://localhost:5000",
+                            },
+                        };
+                        return Task.CompletedTask;
+                    }
+                );
             });
             builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
             builder.Services.AddProblemDetails();
-            builder.Services.AddHealthChecks()
+            builder
+                .Services.AddHealthChecks()
                 .AddNpgSql(builder.Configuration.GetConnectionString("DefaultConnection")!);
 
             // --- REPO INJECT
+            builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             builder.Services.AddScoped<IMonsterRepository, MonsterRepository>();
+            builder.Services.AddScoped<IElementRepository, ElementRepository>();
+            builder.Services.AddScoped<IAbilityRepository, AbilityRepository>();
             // --- SERVICE INJECT ---
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IMonsterService, MonsterService>();
+            builder.Services.AddScoped<IElementService, ElementService>();
+            builder.Services.AddScoped<IAbilityService, AbilityService>();
 
             builder.Services.AddCors(options =>
             {
-                options.AddPolicy("AllowAll",
+                options.AddPolicy(
+                    "AllowAll",
                     policy =>
                     {
-                        policy.AllowAnyOrigin()
-                              .AllowAnyMethod()
-                              .AllowAnyHeader();
-                    });
+                        policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                    }
+                );
             });
 
             var app = builder.Build();
