@@ -4,9 +4,9 @@ using DeepAzureServer.Repositories.Interfaces;
 
 namespace DeepAzureServer.Repositories.Implementations
 {
-    public class ElementMatchupRepository : Repository<ElementMatchup>, IElementMatchupRepository
+    public class AbilityRepository : Repository<Ability>, IAbilityRepository
     {
-        public ElementMatchupRepository(AppDbContext context)
+        public AbilityRepository(AppDbContext context)
             : base(context) { }
     }
 }

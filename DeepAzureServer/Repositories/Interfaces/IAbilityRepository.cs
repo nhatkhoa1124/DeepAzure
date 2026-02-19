@@ -2,7 +2,7 @@
 
 namespace DeepAzureServer.Repositories.Interfaces
 {
-    public interface IElementRepository : IRepository<Element>
+    public interface IAbilityRepository : IRepository<Ability>
     {
     }
 }
