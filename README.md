@@ -95,19 +95,6 @@ Dockerfile includes a test stage that fails the build if unit tests don't pass, 
 | `Conversation` | Private chat thread between two users |
 | `Message` | Individual message within a conversation |
 
-### Entity Relationship Diagram
-
-```
-User ─────┬───── UserMonster ───── Monster ───── Element
-          │                              │              │
-          ├───── UserItem ─────── Item   ├── Ability    │
-          │                              │              │
-          ├───── UserBadge ───── Badge   └── Technique ─┴── StatusEffect
-          │
-          ├───── UserMatch ───── Match
-          │
-          └───── Conversation ───── Message
-```
 
 ## Tech Stack
 
