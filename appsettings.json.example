@@ -1,0 +1,24 @@
+{
+  "ConnectionStrings": {
+    // PostgreSQL connection string
+    // Format: Host=<hostname>;Port=<port>;Database=<dbname>;Username=<user>;Password=<password>
+    "DefaultConnection": "Host=localhost;Port=5433;Database=DeepAzure;Username=postgres;Password=YOUR_PASSWORD_HERE"
+  },
+  "JwtSettings": {
+    // Generate a secure random key (at least 32 characters)
+    // You can use: openssl rand -base64 32
+    "SecretKey": "YOUR_SECRET_KEY_HERE_MINIMUM_32_CHARACTERS",
+    "Issuer": "DeepAzureServer",
+    "Audience": "DeepAzureClient",
+    "AccessTokenExpirationMinutes": 60,
+    "RefreshTokenExpirationDays": 7
+  },
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft.AspNetCore": "Warning",
+      "Microsoft.EntityFrameworkCore.Database.Command": "Information"
+    }
+  },
+  "AllowedHosts": "*"
+}

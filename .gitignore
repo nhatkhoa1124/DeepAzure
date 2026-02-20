@@ -1,11 +1,44 @@
-# Ignore standard VS junk
+# ============================================
+# Visual Studio / .NET
+# ============================================
 .vs/
 bin/
 obj/
+*.user
+*.suo
+*.cache
+*.log
 
-# Ignore appsettings
-**/appsettings.json
-**/appsettings.Development.json
-**/appsettings.Docker.json
+# ============================================
+# SENSITIVE FILES - DO NOT COMMIT
+# ============================================
 
+# Environment variables with secrets
 .env
+.env.local
+.env.production
+
+# Appsettings with real credentials
+**/appsettings.json
+**/appsettings.Production.json
+**/appsettings.Staging.json
+
+# ============================================
+# SAFE TO COMMIT (Templates & Dev Settings)
+# ============================================
+# Explicitly allow these files:
+!appsettings.json.example
+!**/appsettings.Development.json
+!.env.example
+
+# ============================================
+# Docker
+# ============================================
+postgres-data/
+**/Dockerfile.debug
+
+# ============================================
+# OS Files
+# ============================================
+.DS_Store
+Thumbs.db
