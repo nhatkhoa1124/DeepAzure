@@ -64,16 +64,50 @@ Dockerfile includes a test stage that fails the build if unit tests don't pass, 
 
 ## Domain Model
 
+### Core Game Entities
+
 | Entity | Description |
 |--------|-------------|
-| `Monster` | Base creature with stats, elements, and abilities |
-| `UserMonster` | Player-owned monster with level, EXP, and 4 technique slots |
-| `Element` | Type system (Fire, Water, etc.) |
-| `ElementMatchup` | Damage multiplier matrix between elements |
-| `Technique` | Battle moves with damage, targeting, and status effects |
-| `Ability` | Passive effects with JSON-based logic configuration |
-| `Match` | PvP battle record with replay logs |
-| `UserMatch` | Join table tracking ELO changes and outcomes |
+| `Monster` | Base creature template with stats, growth rates, elements, and abilities |
+| `Element` | Type system (Fire, Water, Electric, etc.) for damage calculations |
+| `ElementMatchup` | Damage multiplier matrix defining type advantages/weaknesses |
+| `Technique` | Battle moves with physical/magic damage, targeting, and status effects |
+| `Ability` | Passive effects with JSON-based logic configuration for extensibility |
+| `StatusEffect` | Conditions applied during battle (Poison, Paralyze, Burn, etc.) |
+| `Item` | Consumables with effect types and power values |
+| `Badge` | Achievement/progression markers for players |
+
+### User-Owned Entities
+
+| Entity | Description |
+|--------|-------------|
+| `User` | Player account extending ASP.NET Identity with ELO rating and avatar |
+| `UserMonster` | Player-owned monster instance with level, EXP, nickname, and 4 technique slots |
+| `UserItem` | Player inventory tracking item quantities |
+| `UserBadge` | Unlocked achievements with timestamp |
+
+### Multiplayer & Social
+
+| Entity | Description |
+|--------|-------------|
+| `Match` | PvP battle record with status, type, and replay log |
+| `UserMatch` | Join table tracking team snapshots, ELO changes, and outcomes |
+| `Conversation` | Private chat thread between two users |
+| `Message` | Individual message within a conversation |
+
+### Entity Relationship Diagram
+
+```
+User ─────┬───── UserMonster ───── Monster ───── Element
+          │                              │              │
+          ├───── UserItem ─────── Item   ├── Ability    │
+          │                              │              │
+          ├───── UserBadge ───── Badge   └── Technique ─┴── StatusEffect
+          │
+          ├───── UserMatch ───── Match
+          │
+          └───── Conversation ───── Message
+```
 
 ## Tech Stack
 
@@ -92,29 +126,32 @@ Dockerfile includes a test stage that fails the build if unit tests don't pass, 
 
 ```
 DeepAzure/
-├── DeepAzureServer/
-│   ├── Controllers/          # API endpoints
-│   ├── Services/
-│   │   ├── Interfaces/       # Service contracts
-│   │   └── Implementations/  # Business logic
-│   ├── Repositories/
-│   │   ├── Interfaces/       # Repository contracts
-│   │   └── Implementations/  # Data access
-│   ├── Models/
-│   │   ├── Entities/         # EF Core entities
-│   │   ├── DTOs/             # Request/Response objects
-│   │   ├── Enums/            # Game enumerations
-│   │   └── Common/           # Shared types (PagedResult)
-│   ├── Data/
-│   │   ├── Configurations/   # EF Core Fluent API configs
-│   │   ├── AppDbContext.cs   # Database context
-│   │   └── RoleSeeder.cs     # Initial data seeding
-│   ├── Utils/Extensions/     # Entity-to-DTO mappers
-│   └── Infrastructures/      # Global exception handling
-├── DeepAzureServer.Tests/    # Unit tests
-├── DeepAzureServer.IntegrationTests/
-├── docker-compose.yml
-└── README.md
+├── DeepAzureServer/                           
+│   ├── Controllers/                           
+│   ├── Services/                              
+│   │   ├── Interfaces/                        # Service contracts
+│   │   └── Implementations/                   # Service implementations
+│   ├── Repositories/                          
+│   │   ├── Interfaces/                        # Repository contracts
+│   │   └── Implementations/                   # Repository implementations with EF Core
+│   ├── Models/                                
+│   │   ├── Entities/                          # EF Core entity classes (database tables)
+│   │   ├── Requests/                          # API request DTOs
+│   │   ├── Responses/                         # API response DTOs
+│   │   ├── Enums/                             # Game enumerations (status effects, item types, etc.)
+│   │   └── Common/                            # Shared models (PagedResult, etc.)
+│   ├── Data/                                  
+│   │   └── Configurations/                    # EF Core Fluent API configurations
+│   ├── Utils/                                 
+│   │   └── Extensions/                        # Entity-to-DTO mapping extensions
+│   ├── Infrastructures/                       # Cross-cutting concerns (exception handling, etc.)
+│   └── Migrations/                            # EF Core database migrations
+├── DeepAzureServer.Tests/                     
+│   ├── Services/                              # Service layer tests
+│   └── Helpers/                               # Test utilities & mocks
+├── DeepAzureServer.IntegrationTests/          
+├── docker-compose.yml                         
+└── README.md                                  
 ```
 
 ## Running the Project
