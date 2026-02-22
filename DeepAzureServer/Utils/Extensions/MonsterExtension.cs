@@ -7,6 +7,9 @@ namespace DeepAzureServer.Utils.Extensions
     {
         public static MonsterResponse ToResponseDto(this Monster monster)
         {
+            if (monster == null)
+                return null;
+
             return new MonsterResponse
             {
                 Id = monster.Id,
@@ -19,19 +22,15 @@ namespace DeepAzureServer.Utils.Extensions
                 BaseResistance = monster.BaseResistance,
                 BaseSpeed = monster.BaseSpeed,
                 Price = monster.Price,
-                PrimaryElement = monster.PrimaryElement!.ToReferenceDto(),
+                PrimaryElement = monster.PrimaryElement?.ToReferenceDto(),
                 SecondaryElement = monster.SecondaryElement?.ToReferenceDto(),
-                Ability = monster.Ability?.ToReferenceDto()
+                Ability = monster.Ability?.ToReferenceDto(),
             };
         }
 
         public static ReferenceDto ToReferenceDto(this Monster monster)
         {
-            return new ReferenceDto
-            {
-                Id = monster.Id,
-                Name = monster.Name
-            };
+            return new ReferenceDto { Id = monster.Id, Name = monster.Name };
         }
     }
 }

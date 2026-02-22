@@ -7,6 +7,9 @@ namespace DeepAzureServer.Utils.Extensions
     {
         public static ElementResponse ToResponseDto(this Element element)
         {
+            if (element == null)
+                return null;
+
             return new ElementResponse
             {
                 Id = element.Id,
